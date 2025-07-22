@@ -1,24 +1,36 @@
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import "dotenv/config";
+
+import express from "express";
+import connectCloudinary from "./configs/cloudinary.js";
+import connectDB from "./configs/db.js";
+import { stripeWebhooks } from "./controllers/orderController.js";
+import addressRouter from "./routes/addressRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
+import productRouter from "./routes/productRoute.js";
+import sellerRouter from "./routes/sellerRoute.js";
+import userRouter from "./routes/userRoute.js";
+
 const app = express();
 const port = process.env.PORT || 4000;
-
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://govimart-client.vercel.app",
-];
 
 const startServer = async () => {
   await connectDB();
   await connectCloudinary();
 
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://govimart-client.vercel.app",
+  ];
   app.post(
     "/stripe",
     express.raw({ type: "application/json" }),
     stripeWebhooks
   );
-
   app.use(express.json());
   app.use(cookieParser());
-
   app.use(cors({ origin: allowedOrigins, credentials: true }));
 
   app.get("/", (req, res) => {
@@ -36,5 +48,4 @@ const startServer = async () => {
     console.log(`Server is running on http://localhost:${port}`);
   });
 };
-
 startServer();
