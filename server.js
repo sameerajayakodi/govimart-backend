@@ -19,8 +19,10 @@ const port = process.env.PORT || 4000;
 const startServer = async () => {
   await connectDB();
   await connectCloudinary();
-
-  const allowedOrigins = ["http://localhost:5173","https://govimart-client.vercel.app"];
+  app.use(express.json());
+  app.use(cookieParser());
+  app.use(cors({ origin: allowedOrigins, credentials: true }));
+  const allowedOrigins = ["http://localhost:5173"];
   app.post(
     "/stripe",
     express.raw({ type: "application/json" }),
