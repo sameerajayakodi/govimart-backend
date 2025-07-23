@@ -25,15 +25,5 @@ This is the **backend service** for the GoviMart full-stack grocery delivery pla
 - **CORS** + **Cookie Parser**
 - **dotenv**
 
----
 
-## 📁 Folder Structure
-server/
-├── controllers/ # Business logic
-├── models/ # Mongoose schemas
-├── routes/ # Express route handlers
-├── middleware/ # Auth, error handling
-├── uploads/ # Uploaded files (optional)
-├── utils/ # Utility functions (e.g., cloudinary config)
-├── server.js # Main entry point
-└── .env # Environment variables
+
